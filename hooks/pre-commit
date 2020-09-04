@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+ // tslint:disable
+require('child_process').exec('git rev-parse --abbrev-ref HEAD', function (err, stdout) {
+  if (err) {
+    process.abort();
+  }
+});

@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+ // tslint:disable
+const fs = require("fs");
+const message = fs.readFileSync(process.argv[2], "utf8").trim();
+if (message.match(/^\[(NEW|CONFIG|TEST|REFACTOR|STYLE|DOCS|FIX)\]+ .*/gm)) {
+  console.log("\x1b[36m%s\x1b[0m", "Commit message is acccepted", "\x1b[0m");
+} else if (message.match(/^\[(MERGE)\]+ .*/gm)) {
+  console.log("\x1b[36m%s\x1b[0m", "Merge message is accepted", "\x1b[0m");
+} else {
+  console.log(
+    "\x1b[31m",
+    "Use a message that starts with [NEW|CONFIG|TEST|REFACTOR|STYLE|DOCS|FIX|MERGE] & a space after",
+    "\x1b[0m"
+  );
+  process.exit(5);
+}

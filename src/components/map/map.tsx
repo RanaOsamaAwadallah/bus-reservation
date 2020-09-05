@@ -5,55 +5,54 @@ import {
   GoogleMap,
   Polyline,
   Marker,
+  Circle,
 } from "react-google-maps";
+import * as data from "../../shared/mocks/route.json";
+import {
+  decodePolyline,
+  getProgressPath,
+  getDistance,
+} from "../../shared/helpers/mapHelper";
+import { STOPS } from "../../shared/constants";
 
 class Map extends React.Component {
   state = {
     progress: [],
+    path: [],
+    progressPath: [],
   };
   interval = 0;
-
-  path = [
-    { lat: 29.99509712, lng: 31.4459768 },
-    { lat: 30.01288023, lng: 31.43102269 },
-    { lat: 30.01642345, lng: 31.43356512 },
-    { lat: 30.01637555, lng: 31.39839364 },
-    { lat: 30.0409879, lng: 31.34613896 },
-    { lat: 30.04505095, lng: 31.34143553 },
-    { lat: 30.05408947, lng: 31.3421715 },
-    { lat: 30.06198228, lng: 31.34523262 },
-    { lat: 30.07322503, lng: 31.34378507 },
-    { lat: 30.08201257, lng: 31.34388217 },
-  ];
-
   velocity = 5;
   initialDate: any = new Date();
 
-  getDistance = () => {
-    // seconds between when the component loaded and now
-    const differentInTime = ((new Date() as any) - this.initialDate) / 1000; // pass to seconds
-    return differentInTime * this.velocity; // d = v*t -- thanks Newton!
-  };
-
   componentDidMount = () => {
-    this.interval = window.setInterval(this.moveObject, 500);
+    const encodedPolyline = data.routes[0].overview_polyline.points;
+    const decodedPolyline = decodePolyline(encodedPolyline);
+    const progressPath = getProgressPath(decodedPolyline);
+    this.setState({ path: decodedPolyline, progressPath });
+
+    console.log(this.state.path);
   };
 
   componentWillUnmount = () => {
     window.clearInterval(this.interval);
   };
 
+  startTrip = () => {
+    this.interval = window.setInterval(this.moveObject, 200);
+  };
+
   moveObject = () => {
-    const distance = this.getDistance();
+    const distance = getDistance(this.initialDate, this.velocity);
     if (!distance) {
       return;
     }
 
-    let progress = this.path.filter(
+    let progress = this.state.progressPath.filter(
       (coordinates: any) => coordinates.distance < distance
     );
 
-    const nextLine: any = this.path.find(
+    const nextLine: any = this.state.progressPath.find(
       (coordinates: any) => coordinates.distance > distance
     );
     if (!nextLine) {
@@ -86,47 +85,40 @@ class Map extends React.Component {
     this.setState({ progress });
   };
 
-  componentWillMount = () => {
-    this.path = this.path.map((coordinates, i, array) => {
-      if (i === 0) {
-        return { ...coordinates, distance: 0 }; // it begins here!
-      }
-      const { lat: lat1, lng: lng1 } = coordinates;
-      const latLong1 = new window.google.maps.LatLng(lat1, lng1);
-
-      const { lat: lat2, lng: lng2 } = array[0];
-      const latLong2 = new window.google.maps.LatLng(lat2, lng2);
-
-      // in meters:
-      const distance = window.google.maps.geometry.spherical.computeDistanceBetween(
-        latLong1,
-        latLong2
-      );
-
-      return { ...coordinates, distance };
-    });
-
-    console.log(this.path);
-  };
-
   render = () => {
     return (
-      <GoogleMap
-        defaultZoom={14}
-        defaultCenter={{ lat: 30.0409879, lng: 31.34613896 }}
-      >
-        {this.state.progress && (
-          <>
-            <Polyline
-              path={this.state.progress}
-              options={{ strokeColor: "#FF0000 " }}
+      <>
+        <GoogleMap
+          defaultZoom={12}
+          defaultCenter={{ lat: 30.0409879, lng: 31.34613896 }}
+        >
+          <Polyline
+            path={this.state.path}
+            options={{ strokeColor: "#cd4b71" }}
+          />
+          {STOPS.map((stop) => (
+            <Circle
+              defaultCenter={stop}
+              defaultVisible
+              visible
+              radius={30}
+              defaultOptions={{ fillColor: "#754daa", strokeColor: "#754daa" }}
             />
-            <Marker
-              position={this.state.progress[this.state.progress.length - 1]}
-            />
-          </>
-        )}
-      </GoogleMap>
+          ))}
+          {this.state.progress && (
+            <>
+              <Polyline
+                path={this.state.progress}
+                options={{ strokeColor: "#754daa" }}
+              />
+              <Marker
+                position={this.state.progress[this.state.progress.length - 1]}
+              />
+            </>
+          )}
+        </GoogleMap>
+        <button onClick={this.startTrip}>Start</button>
+      </>
     );
   };
 }
@@ -137,7 +129,7 @@ export default () => (
   <MapComponent
     googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
     loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `400px`, width: "500px" }} />}
+    containerElement={<div style={{ height: `400px`, width: "100%" }} />}
     mapElement={<div style={{ height: `100%` }} />}
   />
 );

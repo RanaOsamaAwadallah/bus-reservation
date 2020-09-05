@@ -117,7 +117,7 @@ class Map extends React.Component {
             </>
           )}
         </GoogleMap>
-        <button onClick={this.startTrip}>Start</button>
+        <button onClick={this.startTrip}>Start Ride</button>
       </>
     );
   };

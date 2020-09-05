@@ -1,0 +1,13 @@
+{
+    "data": {
+        "tripDate": "15/9/2020",
+        "time": "8:07 Am",
+        "driverName": "Herbert Patton",
+        "carType": "Toyota HiAce - GA 2770",
+        "startLocationName": "Industrial Area, Third New Cairo, Cairo Governorate, Egypt",
+        "endLocationName": "Mohandesin",
+        "tripDistance": 23.6,
+        "tripFare": 45
+    },
+    "status": "OK"
+}

@@ -1,0 +1,18 @@
+.trip-info {
+    margin: 1rem 0;
+
+    .trip-info__date-time {
+        color: gray;
+        margin-bottom: 3rem;
+    }
+
+    .trip-info__main {
+        font-size: large;
+        display: flex;
+        justify-content: space-between;
+
+        .diver-info__name {
+            font-weight: bold;
+        }
+    }
+}

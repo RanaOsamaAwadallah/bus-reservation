@@ -1,0 +1,28 @@
+{
+    "data": [{
+            "name": "Adam Smith",
+            "seatNumber": 1
+        },
+        {
+            "name": "Jane Doe",
+            "seatNumber": 2
+        },
+        {
+            "name": "John Doe",
+            "seatNumber": 1
+        },
+        {
+            "name": "Anna Jones",
+            "seatNumber": 1
+        },
+        {
+            "name": "Nick",
+            "seatNumber": 1
+        },
+        {
+            "name": "Elen Page",
+            "seatNumber": 1
+        }
+    ],
+    "status": "OK"
+}

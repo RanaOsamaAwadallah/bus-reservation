@@ -1,0 +1,12 @@
+.bookings {
+    display: flex;
+    flex-wrap: wrap;
+
+    .bookings__customer {
+        margin: 0 1rem;
+
+        .name {
+            font-weight: bold;
+        }
+    }
+}

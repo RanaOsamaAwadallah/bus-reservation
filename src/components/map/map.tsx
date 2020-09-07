@@ -22,7 +22,7 @@ class Map extends React.Component {
     progressPath: [],
   };
   interval = 0;
-  velocity = 5;
+  velocity = 20;
   initialDate: any = new Date();
 
   componentDidMount = () => {
@@ -30,8 +30,6 @@ class Map extends React.Component {
     const decodedPolyline = decodePolyline(encodedPolyline);
     const progressPath = getProgressPath(decodedPolyline);
     this.setState({ path: decodedPolyline, progressPath });
-
-    console.log(this.state.path);
   };
 
   componentWillUnmount = () => {

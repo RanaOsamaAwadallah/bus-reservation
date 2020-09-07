@@ -1,27 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./tripInfo.module.scss";
+import { fetchTripInfo, TripInfoSliceState } from "./tripInfoSlice";
+import { connect } from "react-redux";
 
 interface TripInformationProps {
-  tripDate?: string;
-  time?: string;
-  driverName?: string;
-  carType?: string;
-  startLocationName?: string;
-  endLocationName?: string;
-  tripDistance?: number;
-  tripFare?: number;
+  tripInfo: {
+    tripDate?: string;
+    time?: string;
+    driverName?: string;
+    carType?: string;
+    startLocationName?: string;
+    endLocationName?: string;
+    tripDistance?: number | null;
+    tripFare?: number | null;
+  };
+  fetchTripInfo: any;
 }
 
-export const TripInformation: React.FC<TripInformationProps> = ({
-  tripDate,
-  time,
-  driverName,
-  carType,
-  startLocationName,
-  endLocationName,
-  tripDistance,
-  tripFare,
+const TripInformation: React.FC<TripInformationProps> = ({
+  tripInfo,
+  fetchTripInfo,
 }) => {
+  useEffect(() => {
+    fetchTripInfo();
+  }, [fetchTripInfo]);
+  const {
+    tripDate,
+    time,
+    driverName,
+    carType,
+    startLocationName,
+    endLocationName,
+    tripDistance,
+    tripFare,
+  } = tripInfo;
   return (
     <div className={styles["trip-info"]}>
       <h1>Trip Information</h1>
@@ -49,3 +61,14 @@ export const TripInformation: React.FC<TripInformationProps> = ({
     </div>
   );
 };
+
+// TOD add rootstate type
+const mapStateToProps = (state: { tripInfoState: TripInfoSliceState }) => ({
+  tripInfo: state.tripInfoState.tripInfo,
+});
+
+const mapDispatchToProps = {
+  fetchTripInfo,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TripInformation);

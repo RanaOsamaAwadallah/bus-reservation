@@ -1,24 +1,32 @@
 import React from "react";
 import "./App.css";
-// import Map from "./components/map/map";
+import Map from "./components/map/map";
 import BusLogo from "./assets/bus.svg";
-import { TripInformation } from "./components/tripInfo/tripInfo";
-import * as data from "./shared/mocks/tripInformation.json";
+import TripInformation from "./components/tripInfo/tripInfo";
 import * as bookings from "./shared/mocks/bookings.json";
 import { Bookings } from "./components/bookings/bookings";
+import rootReducer from "./reducers";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+
+const store = configureStore({
+  reducer: rootReducer,
+});
 
 function App() {
   return (
-    <div className="App">
-      <header>
-        <img src={BusLogo} alt="Bus Logo" />
-      </header>
-      {/* <Map /> */}
-      <div className="trip-data">
-        <TripInformation {...data.data} />
-        <Bookings bookings={bookings.data} />
+    <Provider store={store}>
+      <div className="App">
+        <header>
+          <img src={BusLogo} alt="Bus Logo" />
+        </header>
+        <Map />
+        <div className="trip-data">
+          <TripInformation />
+          <Bookings bookings={bookings.data} />
+        </div>
       </div>
-    </div>
+    </Provider>
   );
 }
 

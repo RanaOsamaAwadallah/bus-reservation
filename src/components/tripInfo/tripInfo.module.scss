@@ -11,8 +11,23 @@
         display: flex;
         justify-content: space-between;
 
-        .diver-info__name {
-            font-weight: bold;
+        .diver-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .diver-info__name {
+                font-weight: bold;
+            }
+
+            .diver-info__img {
+                width: 5em;
+                height: 5em;
+                border-radius: 5em;
+                object-fit: cover;
+                margin-right: 1em;
+            }
         }
+
     }
 }

@@ -1,27 +1,27 @@
 {
     "data": [{
             "name": "Adam Smith",
-            "seatNumber": 1
+            "img": "https://previews.123rf.com/images/leungchopan/leungchopan1406/leungchopan140600111/28915430-caucasian-man-headshot.jpg"
         },
         {
             "name": "Jane Doe",
-            "seatNumber": 2
+            "img": "https://images.squarespace-cdn.com/content/v1/5c869a3765a70789cd2f45cb/1561643929478-ZN0ZQMLFESRTGL5CN7TK/ke17ZwdGBToddI8pDm48kHmLeEzARneXWVNN3KN0jJZ7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmlMqpINHCYwrjchQjceiMlVzRPhPN2AV6lVr4IpL0Z89NSReZj_I3-pvnrfPpd5Aa/Headshot-woman-red.jpg"
         },
         {
             "name": "John Doe",
-            "seatNumber": 1
+            "img": "https://previews.123rf.com/images/luissantos84/luissantos841201/luissantos84120100022/12151494-young-and-smiling-casual-man-headshot-isolated-on-white-background-.jpg"
         },
         {
             "name": "Anna Jones",
-            "seatNumber": 1
+            "img": "https://images.squarespace-cdn.com/content/v1/5c44d5c51aef1d5ded95f550/1561154367485-L29VMUXD1UI58MM5EU3W/ke17ZwdGBToddI8pDm48kGimpnGS74lOCXEVScmdKfQUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8GRo6ASst2s6pLvNAu_PZdJblJnDTNjTASBy3WMly_ic7RFeFNz6WHDDme815vyzW9AukLhYm2lpbtr2HKmuE68/young-professional-corporate-headshot-of-a-business-woman-.jpg"
         },
         {
             "name": "Nick",
-            "seatNumber": 1
+            "img": "https://www.eikonphoto.com/wp-content/uploads/2017/03/male-headshot-tie-color-e1515795186596.jpg"
         },
         {
             "name": "Elen Page",
-            "seatNumber": 1
+            "img": "https://i.pinimg.com/236x/21/9d/6e/219d6e41b988ed84c0bff094a9be02f4.jpg"
         }
     ],
     "status": "OK"

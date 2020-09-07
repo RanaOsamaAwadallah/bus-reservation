@@ -1,12 +1,26 @@
 .bookings {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 
     .bookings__customer {
-        margin: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 20em;
+        padding: 2em;
 
         .name {
             font-weight: bold;
+        }
+
+        .img {
+            width: 5em;
+            height: 5em;
+            border-radius: 5em;
+            object-fit: cover;
+            margin-right: 1em;
+
         }
     }
 }

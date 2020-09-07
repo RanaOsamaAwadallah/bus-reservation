@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { BookingsSliceState, addBooking, fetchBookings } from "./bookingsSlice";
 
 interface BookingsProps {
-  bookings?: Array<{ name: string; status?: string }>;
+  bookings?: Array<{ name: string; status?: string; img?: string }>;
   fetchBookings?: any;
 }
 
@@ -15,9 +15,15 @@ export const Bookings: React.FC<BookingsProps> = ({
   useEffect(() => {
     fetchBookings();
   }, [fetchBookings]);
+  const anonymousImg = "https://www.georeferencer.com/static/img/person.png";
 
   const bookingsElements = bookings?.map((booking) => (
     <div className={styles["bookings__customer"]}>
+      <img
+        className={styles["img"]}
+        src={booking.img || anonymousImg}
+        alt="user"
+      />
       <div className={styles["name"]}>{booking.name}</div>
       <div className={styles["ride-data"]}>{booking.status}</div>
     </div>

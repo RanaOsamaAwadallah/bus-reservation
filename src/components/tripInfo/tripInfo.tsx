@@ -8,6 +8,7 @@ interface TripInformationProps {
     tripDate?: string;
     time?: string;
     driverName?: string;
+    driverImg?: string;
     carType?: string;
     startLocationName?: string;
     endLocationName?: string;
@@ -28,6 +29,7 @@ const TripInformation: React.FC<TripInformationProps> = ({
     tripDate,
     time,
     driverName,
+    driverImg,
     carType,
     startLocationName,
     endLocationName,
@@ -42,8 +44,15 @@ const TripInformation: React.FC<TripInformationProps> = ({
       </p>
       <div className={styles["trip-info__main"]}>
         <div className={styles["diver-info"]}>
-          <div className={styles["diver-info__name"]}>{driverName}</div>
-          <div className={styles["diver-info__car-type"]}>{carType}</div>
+          <img
+            className={styles["diver-info__img"]}
+            src={driverImg}
+            alt="Driver"
+          />
+          <div>
+            <div className={styles["diver-info__name"]}>{driverName}</div>
+            <div className={styles["diver-info__car-type"]}>{carType}</div>
+          </div>
         </div>
         <div className={styles["route"]}>
           <div className={styles["route__start"]}>{startLocationName}</div>

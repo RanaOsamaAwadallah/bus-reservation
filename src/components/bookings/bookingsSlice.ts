@@ -3,11 +3,12 @@ import { ErrorInfo } from "react";
 import * as reponse from "../../shared/mocks/bookings.json";
 
 type Booking = {
+  img?: string;
   name: string;
   status?: string;
-  // pickupStation: string;
-  // dropOffStation: string;
-  // paymentMethod: string;
+  pickupStation: string;
+  dropOffStation: string;
+  paymentMethod: string;
 };
 export type BookingsSliceState = {
   isFetching: boolean;

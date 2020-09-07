@@ -2,13 +2,17 @@ import { createSlice, Dispatch } from "@reduxjs/toolkit";
 import { ErrorInfo } from "react";
 import * as reponse from "../../shared/mocks/bookings.json";
 
-type Booking = {
+export enum PaymentMethod {
+  VISA = "visa",
+  CASH = "cash",
+}
+export type Booking = {
   img?: string;
   name: string;
   status?: string;
   pickupStation: string;
   dropOffStation: string;
-  paymentMethod: string;
+  paymentMethod: PaymentMethod;
 };
 export type BookingsSliceState = {
   isFetching: boolean;

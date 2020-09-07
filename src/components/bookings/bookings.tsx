@@ -1,10 +1,18 @@
 import React, { useEffect } from "react";
 import styles from "./bookings.module.scss";
 import { connect } from "react-redux";
-import { BookingsSliceState, addBooking, fetchBookings } from "./bookingsSlice";
+import {
+  BookingsSliceState,
+  addBooking,
+  fetchBookings,
+  Booking,
+  PaymentMethod,
+} from "./bookingsSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoneyBill, faIdCard } from "@fortawesome/free-solid-svg-icons";
 
 interface BookingsProps {
-  bookings?: Array<{ name: string; status?: string; img?: string }>;
+  bookings?: Array<Booking>;
   fetchBookings?: any;
 }
 
@@ -24,8 +32,19 @@ export const Bookings: React.FC<BookingsProps> = ({
         src={booking.img || anonymousImg}
         alt="user"
       />
-      <div className={styles["name"]}>{booking.name}</div>
-      <div className={styles["ride-data"]}>{booking.status}</div>
+      <div>
+        <div className={styles["name"]}>{booking.name}</div>
+        <div className={styles["ride-data"]}>
+          <FontAwesomeIcon
+            icon={
+              booking.paymentMethod === PaymentMethod.CASH
+                ? faMoneyBill
+                : faIdCard
+            }
+          />{" "}
+          <span>{booking.status}</span>
+        </div>
+      </div>
     </div>
   ));
   return (

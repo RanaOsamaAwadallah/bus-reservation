@@ -62,7 +62,7 @@ const TripInformation: React.FC<TripInformationProps> = ({
   );
 };
 
-// TOD add rootstate type
+// TODO add rootstate type
 const mapStateToProps = (state: { tripInfoState: TripInfoSliceState }) => ({
   tripInfo: state.tripInfoState.tripInfo,
 });

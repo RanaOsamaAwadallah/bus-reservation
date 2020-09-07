@@ -3,8 +3,7 @@ import "./App.css";
 import Map from "./components/map/map";
 import BusLogo from "./assets/bus.svg";
 import TripInformation from "./components/tripInfo/tripInfo";
-import * as bookings from "./shared/mocks/bookings.json";
-import { Bookings } from "./components/bookings/bookings";
+import Bookings from "./components/bookings/bookings";
 import rootReducer from "./reducers";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
@@ -23,7 +22,7 @@ function App() {
         <Map />
         <div className="trip-data">
           <TripInformation />
-          <Bookings bookings={bookings.data} />
+          <Bookings />
         </div>
       </div>
     </Provider>

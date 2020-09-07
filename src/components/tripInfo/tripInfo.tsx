@@ -2,6 +2,13 @@ import React, { useEffect } from "react";
 import styles from "./tripInfo.module.scss";
 import { fetchTripInfo, TripInfoSliceState } from "./tripInfoSlice";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMapPin,
+  faDollarSign,
+  faRoute,
+} from "@fortawesome/free-solid-svg-icons";
+import CountUp from "react-countup";
 
 interface TripInformationProps {
   tripInfo: {
@@ -55,15 +62,32 @@ const TripInformation: React.FC<TripInformationProps> = ({
           </div>
         </div>
         <div className={styles["route"]}>
-          <div className={styles["route__start"]}>{startLocationName}</div>
-          <div className={styles["route__end"]}>{endLocationName}</div>
+          <FontAwesomeIcon
+            className={styles["icon"]}
+            icon={faRoute}
+            size="lg"
+          />
+          <div className={styles["route__data"]}>
+            <div className={styles["route__start"]}>{startLocationName}</div>
+            <div className={styles["route__end"]}>{endLocationName}</div>
+          </div>
         </div>
         <div className={styles["billing"]}>
           <div className={styles["billing__distance"]}>
-            Trip Distance: <b>{tripDistance} KM</b>
+            <FontAwesomeIcon className={styles["icon"]} icon={faMapPin} /> Trip
+            Distance: <b>{tripDistance} KM</b>
           </div>
           <div className={styles["route__end"]}>
-            Trip Base Fare: <b>{tripFare} EGP</b>
+            <FontAwesomeIcon className={styles["icon"]} icon={faDollarSign} />{" "}
+            Trip Base Fare:{" "}
+            <b>
+              <CountUp
+                start={0}
+                end={tripFare || 0}
+                suffix=" EGP"
+                duration={4}
+              />
+            </b>
           </div>
         </div>
       </div>

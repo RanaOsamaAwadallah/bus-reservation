@@ -6,3 +6,7 @@ header img {
 .trip-data {
     padding: 1rem 10rem;
 }
+
+.svg-inline--fa path {
+    fill: #754daa;
+}

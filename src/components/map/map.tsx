@@ -14,8 +14,9 @@ import {
   getDistance,
 } from "../../shared/helpers/mapHelper";
 import { STOPS } from "../../shared/constants";
+import { connect } from "react-redux";
 
-class Map extends React.Component {
+class Map extends React.Component<{ tripStarted?: boolean }> {
   state = {
     progress: [],
     path: [],
@@ -32,13 +33,18 @@ class Map extends React.Component {
     this.setState({ path: decodedPolyline, progressPath });
   };
 
+  componentDidUpdate = (prevProps: any) => {
+    if (prevProps.tripStarted !== this.props.tripStarted) {
+      this.startTrip();
+    }
+  };
+
   componentWillUnmount = () => {
     window.clearInterval(this.interval);
   };
 
   startTrip = () => {
     this.initalDate = new Date();
-
     this.interval = window.setInterval(this.moveObject, 200);
   };
 
@@ -117,13 +123,18 @@ class Map extends React.Component {
             </>
           )}
         </GoogleMap>
-        <button onClick={this.startTrip}>Start Ride</button>
       </>
     );
   };
 }
 
-const MapComponent = withScriptjs(withGoogleMap(Map));
+const mapStateToProps = (state: any) => ({
+  tripStarted: state.tripInfoState.tripInfo.tripStarted,
+});
+
+const connectedMap = connect(mapStateToProps)(Map);
+
+const MapComponent = withScriptjs(withGoogleMap(connectedMap));
 
 export default () => (
   <MapComponent

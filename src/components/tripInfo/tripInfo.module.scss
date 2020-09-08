@@ -1,15 +1,46 @@
 .trip-info {
     margin: 1rem 0;
 
+    .tip-info__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .start-btn {
+            font-size: large;
+            padding: 0.5em;
+            background: #754daa;
+            color: white;
+            border: none;
+            border-radius: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover,
+            &:active {
+                background: #6634a7;
+            }
+
+            &:disabled {
+                background: #9482ad;
+                cursor: inherit;
+            }
+        }
+    }
+
     .trip-info__date-time {
         color: gray;
         margin-bottom: 3rem;
     }
 
     .trip-info__main {
-        font-size: large;
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
+
+        div {
+            margin-bottom: 0.5em;
+        }
 
         .diver-info {
             display: flex;
@@ -37,6 +68,13 @@
             .icon {
                 padding-right: 1em;
             }
+        }
+
+        .billing {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
         }
     }
 }

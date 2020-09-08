@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import Map from "./components/map/map";
 import BusLogo from "./assets/bus.svg";
 import TripInformation from "./components/tripInfo/tripInfo";

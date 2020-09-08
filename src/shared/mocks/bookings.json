@@ -1,6 +1,5 @@
 {
-  "data": [
-    {
+  "data": [{
       "name": "Adam Smith",
       "img": "https://previews.123rf.com/images/leungchopan/leungchopan1406/leungchopan140600111/28915430-caucasian-man-headshot.jpg",
       "paymentMethod": "cash"
@@ -21,7 +20,7 @@
       "paymentMethod": "cash"
     },
     {
-      "name": "Nick",
+      "name": "Nick Jonas",
       "img": "https://www.eikonphoto.com/wp-content/uploads/2017/03/male-headshot-tie-color-e1515795186596.jpg",
       "paymentMethod": "visa"
     },

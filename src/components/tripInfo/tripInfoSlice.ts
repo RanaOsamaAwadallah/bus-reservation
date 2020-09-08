@@ -13,6 +13,7 @@ export type TripInfoSliceState = {
     endLocationName?: string;
     tripDistance?: number | null;
     tripFare?: number | null;
+    tripStarted?: boolean;
   };
   error: ErrorInfo | null;
 };
@@ -27,6 +28,7 @@ const initialState: TripInfoSliceState = {
     endLocationName: "",
     tripDistance: null,
     tripFare: null,
+    tripStarted: false,
   },
   error: null,
 };
@@ -56,10 +58,18 @@ const tripInfoSlice = createSlice({
         tripFare: null,
       };
     },
+    startTripSuccess(state) {
+      state.tripInfo.tripStarted = true;
+    },
   },
 });
 
-export const { fetchStarted, setTripInfo, setError } = tripInfoSlice.actions;
+export const {
+  fetchStarted,
+  setTripInfo,
+  setError,
+  startTripSuccess,
+} = tripInfoSlice.actions;
 
 export default tripInfoSlice.reducer;
 
@@ -68,6 +78,14 @@ export const fetchTripInfo = () => (dispatch: Dispatch) => {
     dispatch(fetchStarted());
     const tripInfo = response.data;
     dispatch(setTripInfo(tripInfo));
+  } catch (e) {
+    dispatch(setError(e.toString()));
+  }
+};
+
+export const startTrip = () => (dispatch: Dispatch) => {
+  try {
+    dispatch(startTripSuccess());
   } catch (e) {
     dispatch(setError(e.toString()));
   }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./tripInfo.module.scss";
-import { fetchTripInfo, TripInfoSliceState } from "./tripInfoSlice";
+import { fetchTripInfo, TripInfoSliceState, startTrip } from "./tripInfoSlice";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,17 +21,21 @@ interface TripInformationProps {
     endLocationName?: string;
     tripDistance?: number | null;
     tripFare?: number | null;
+    tripStarted?: boolean;
   };
   fetchTripInfo: any;
+  startTrip: any;
 }
 
 const TripInformation: React.FC<TripInformationProps> = ({
   tripInfo,
   fetchTripInfo,
+  startTrip,
 }) => {
   useEffect(() => {
     fetchTripInfo();
   }, [fetchTripInfo]);
+
   const {
     tripDate,
     time,
@@ -42,10 +46,22 @@ const TripInformation: React.FC<TripInformationProps> = ({
     endLocationName,
     tripDistance,
     tripFare,
+    tripStarted,
   } = tripInfo;
+
   return (
     <div className={styles["trip-info"]}>
-      <h1>Trip Information</h1>
+      <div className={styles["tip-info__header"]}>
+        <h1>Trip Information</h1>
+        <button
+          onClick={startTrip}
+          className={styles["start-btn"]}
+          disabled={tripStarted}
+        >
+          {tripStarted ? "Ride Started" : "Start Ride"}
+        </button>
+      </div>
+
       <p className={styles["trip-info__date-time"]}>
         {tripDate}, {time}
       </p>
@@ -102,6 +118,7 @@ const mapStateToProps = (state: { tripInfoState: TripInfoSliceState }) => ({
 
 const mapDispatchToProps = {
   fetchTripInfo,
+  startTrip,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TripInformation);

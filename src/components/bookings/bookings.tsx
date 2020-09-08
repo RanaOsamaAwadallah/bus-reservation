@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./bookings.module.scss";
 import { connect } from "react-redux";
 import {
@@ -9,7 +9,12 @@ import {
   PaymentMethod,
 } from "./bookingsSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoneyBill, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMoneyBill,
+  faIdCard,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
+import AddBookingForm from "./addBooking/addBooking";
 
 interface BookingsProps {
   bookings?: Array<Booking>;
@@ -23,6 +28,8 @@ export const Bookings: React.FC<BookingsProps> = ({
   useEffect(() => {
     fetchBookings();
   }, [fetchBookings]);
+  const [isAddBookingActive, setIsAddBookingActive] = useState(false);
+
   const anonymousImg = "https://www.georeferencer.com/static/img/person.png";
 
   const bookingsElements = bookings?.map((booking) => (
@@ -49,8 +56,21 @@ export const Bookings: React.FC<BookingsProps> = ({
   ));
   return (
     <>
-      <h1>Bookings</h1>
+      <h1>
+        Bookings{" "}
+        {bookings && bookings.length < 12 && (
+          <FontAwesomeIcon
+            icon={faPlus}
+            size="sm"
+            onClick={() => setIsAddBookingActive(true)}
+          />
+        )}
+      </h1>
       <div className={styles["bookings"]}>{bookingsElements}</div>
+      <AddBookingForm
+        isModalOpen={isAddBookingActive}
+        onModalClose={() => setIsAddBookingActive(false)}
+      />
     </>
   );
 };

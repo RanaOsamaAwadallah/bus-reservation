@@ -23,7 +23,7 @@ class Map extends React.Component {
   };
   interval = 0;
   velocity = 20;
-  initialDate: any = new Date();
+  initalDate: any;
 
   componentDidMount = () => {
     const encodedPolyline = data.routes[0].overview_polyline.points;
@@ -37,11 +37,13 @@ class Map extends React.Component {
   };
 
   startTrip = () => {
+    this.initalDate = new Date();
+
     this.interval = window.setInterval(this.moveObject, 200);
   };
 
   moveObject = () => {
-    const distance = getDistance(this.initialDate, this.velocity);
+    const distance = getDistance(this.initalDate, this.velocity);
     if (!distance) {
       return;
     }

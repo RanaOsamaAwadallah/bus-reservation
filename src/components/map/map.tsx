@@ -118,7 +118,13 @@ class Map extends React.Component<{ tripStarted?: boolean }> {
                 options={{ strokeColor: "#754daa" }}
               />
               <Marker
+                animation={google.maps.Animation.DROP}
                 position={this.state.progress[this.state.progress.length - 1]}
+                defaultIcon={{
+                  url:
+                    "https://www.flaticon.com/svg/static/icons/svg/543/543885.svg",
+                  scaledSize: new google.maps.Size(40, 32),
+                }}
               />
             </>
           )}

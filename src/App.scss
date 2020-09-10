@@ -1,3 +1,5 @@
+@import './assets/styles/variables.scss';
+
 header img {
     width: 3%;
     padding: 0 1rem;
@@ -8,5 +10,5 @@ header img {
 }
 
 .svg-inline--fa path {
-    fill: #754daa;
+    fill: $base-purple-color;
 }

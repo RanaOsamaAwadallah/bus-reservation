@@ -1,0 +1,59 @@
+@import '../../../assets/styles/variables.scss';
+
+.form-input {
+    margin-bottom: 2em !important;
+}
+
+.name-input {
+    margin-left: 1em;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #0404042e;
+    outline: none;
+    transition: ease-in-out 0.5s;
+
+    &:active,
+    &:hover,
+    &:focus {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid $light-purple-color;
+    }
+}
+
+.payment-type-input {
+    display: flex;
+
+    span {
+        display: flex;
+        margin-left: 0.5em;
+
+        .radio {
+            padding-right: 0.5em;
+        }
+    }
+}
+
+.btn-default {
+    float: right;
+    font-size: medium;
+    padding: 0.5em;
+    background: $base-purple-color;
+    color: white;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover,
+    &:active {
+        background: $hover-purple-color;
+    }
+
+    &:disabled {
+        background: $light-purple-color;
+        cursor: inherit;
+    }
+}

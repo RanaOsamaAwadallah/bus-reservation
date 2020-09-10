@@ -1,3 +1,5 @@
+@import '../../assets/styles/variables.scss';
+
 .trip-info {
     padding: 1rem 0;
     border-bottom: 1px solid #80808033;
@@ -10,7 +12,7 @@
         .start-btn {
             font-size: large;
             padding: 0.5em;
-            background: #754daa;
+            background: $base-purple-color;
             color: white;
             border: none;
             border-radius: 1em;
@@ -19,11 +21,11 @@
 
             &:hover,
             &:active {
-                background: #6634a7;
+                background: $hover-purple-color;
             }
 
             &:disabled {
-                background: #9482ad;
+                background: $light-purple-color;
                 cursor: inherit;
             }
         }

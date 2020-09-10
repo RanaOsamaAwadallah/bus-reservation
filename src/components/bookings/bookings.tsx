@@ -60,6 +60,7 @@ export const Bookings: React.FC<BookingsProps> = ({
         Bookings{" "}
         {bookings && bookings.length < 12 && (
           <FontAwesomeIcon
+            className={styles["add-booking"]}
             icon={faPlus}
             size="sm"
             onClick={() => setIsAddBookingActive(true)}
@@ -70,6 +71,7 @@ export const Bookings: React.FC<BookingsProps> = ({
       <AddBookingForm
         isModalOpen={isAddBookingActive}
         onModalClose={() => setIsAddBookingActive(false)}
+        onSubmit={() => console.log("form submit")}
       />
     </>
   );

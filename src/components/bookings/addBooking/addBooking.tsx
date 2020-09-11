@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { addBooking } from "../bookingsSlice";
+import { addBooking, PaymentMethod } from "../bookingsSlice";
 import { Overlay } from "react-portal-overlay";
 import styles from "./addBooking.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoneyBill, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import { Booking } from "../bookingsSlice";
 
 const AddBookingForm: React.FC<{
   isModalOpen: boolean;
+  addBooking: (booking: Booking) => void;
   onModalClose: () => void;
-  onSubmit: () => void;
-}> = ({ isModalOpen, onModalClose, onSubmit }) => {
+}> = ({ isModalOpen, onModalClose, addBooking }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
-  const [paymentType, setPaymentType] = useState("cash");
+  const [paymentMethod, setPaymentType] = useState(PaymentMethod.CASH);
 
   useEffect(() => {
     setOpen(isModalOpen);
@@ -27,14 +28,26 @@ const AddBookingForm: React.FC<{
     (event) => setPaymentType(event.target.value),
     []
   );
-  const handleFormSubmit = useCallback(() => onSubmit(), [onSubmit]);
+  const closeModal = useCallback(() => {
+    onModalClose();
+    setOpen(false);
+    setName("");
+    setPaymentType(PaymentMethod.CASH);
+  }, [onModalClose]);
+  const handleFormSubmit = useCallback(
+    (event) => {
+      addBooking({ name, paymentMethod });
+      closeModal();
+    },
+    [addBooking, closeModal, name, paymentMethod]
+  );
 
   return (
     <Overlay
+      key={isModalOpen ? 1 : 0}
       open={open}
       onClose={() => {
-        onModalClose();
-        setOpen(false);
+        closeModal();
       }}
       closeOnClick
       style={{
@@ -52,7 +65,7 @@ const AddBookingForm: React.FC<{
           borderRadius: "5px",
         }}
       >
-        <form onSubmit={handleFormSubmit}>
+        <form>
           <h1>Add booking</h1>
           <label>
             Name:
@@ -66,7 +79,7 @@ const AddBookingForm: React.FC<{
           </label>
           <div
             className={`${styles["form-input"]} ${styles["payment-type-input"]}`}
-            key={paymentType}
+            key={paymentMethod}
           >
             Payment:
             <span>
@@ -75,7 +88,7 @@ const AddBookingForm: React.FC<{
                   <input
                     type="radio"
                     value="cash"
-                    checked={paymentType === "cash"}
+                    checked={paymentMethod === "cash"}
                     onChange={handlePaymentTypeChange}
                   />
                   <FontAwesomeIcon icon={faMoneyBill} /> Cash
@@ -86,7 +99,7 @@ const AddBookingForm: React.FC<{
                   <input
                     type="radio"
                     value="visa"
-                    checked={paymentType === "visa"}
+                    checked={paymentMethod === "visa"}
                     onChange={handlePaymentTypeChange}
                   />
                   <FontAwesomeIcon icon={faIdCard} /> Visa
@@ -96,7 +109,11 @@ const AddBookingForm: React.FC<{
           </div>
         </form>
 
-        <button className={styles["btn-default"]} type="submit">
+        <button
+          className={styles["btn-default"]}
+          onClick={handleFormSubmit}
+          disabled={!name}
+        >
           Add
         </button>
       </div>

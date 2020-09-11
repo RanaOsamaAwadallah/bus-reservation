@@ -21,6 +21,11 @@
         border-right: none;
         border-bottom: 1px solid $light-purple-color;
     }
+
+    &:disabled {
+        background: $light-purple-color;
+        cursor: inherit;
+    }
 }
 
 .payment-type-input {

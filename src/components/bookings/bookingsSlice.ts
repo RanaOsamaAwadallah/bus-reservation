@@ -10,8 +10,8 @@ export type Booking = {
   img?: string;
   name: string;
   status?: string;
-  pickupStation: string;
-  dropOffStation: string;
+  pickupStation?: string;
+  dropOffStation?: string;
   paymentMethod: PaymentMethod;
 };
 export type BookingsSliceState = {

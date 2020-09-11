@@ -71,7 +71,6 @@ export const Bookings: React.FC<BookingsProps> = ({
       <AddBookingForm
         isModalOpen={isAddBookingActive}
         onModalClose={() => setIsAddBookingActive(false)}
-        onSubmit={() => console.log("form submit")}
       />
     </>
   );

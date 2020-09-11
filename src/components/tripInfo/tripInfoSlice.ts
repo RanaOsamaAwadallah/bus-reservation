@@ -60,6 +60,7 @@ const tripInfoSlice = createSlice({
     },
     startTripSuccess(state) {
       state.tripInfo.tripStarted = true;
+      localStorage.setItem("tripStarted", "true");
     },
   },
 });

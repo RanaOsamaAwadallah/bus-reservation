@@ -31,6 +31,10 @@ class Map extends React.Component<{ tripStarted?: boolean }> {
     const decodedPolyline = decodePolyline(encodedPolyline);
     const progressPath = getProgressPath(decodedPolyline);
     this.setState({ path: decodedPolyline, progressPath });
+    if (localStorage.getItem("initalDate")) {
+      this.initalDate = new Date(localStorage.getItem("initalDate") as string);
+      this.interval = window.setInterval(this.moveObject, 200);
+    }
   };
 
   componentDidUpdate = (prevProps: any) => {
@@ -45,6 +49,7 @@ class Map extends React.Component<{ tripStarted?: boolean }> {
 
   startTrip = () => {
     this.initalDate = new Date();
+    localStorage.setItem("initalDate", this.initalDate);
     this.interval = window.setInterval(this.moveObject, 200);
   };
 

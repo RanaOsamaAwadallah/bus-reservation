@@ -4,8 +4,8 @@ import Map from "./components/map/map";
 import BusLogo from "./assets/bus.svg";
 import TripInformation from "./components/tripInfo/tripInfo";
 import Bookings from "./components/bookings/bookings";
-import rootReducer from "./reducers";
 import { Provider } from "react-redux";
+import rootReducer from "./reducers";
 import { configureStore } from "@reduxjs/toolkit";
 
 const store = configureStore({

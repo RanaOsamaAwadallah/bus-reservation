@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import styles from "./tripInfo.module.scss";
 import { fetchTripInfo, TripInfoSliceState, startTrip } from "./tripInfoSlice";
 import { connect } from "react-redux";
@@ -36,6 +36,16 @@ const TripInformation: React.FC<TripInformationProps> = ({
     fetchTripInfo();
   }, [fetchTripInfo]);
 
+  let tripStarted = localStorage.getItem("tripStarted")
+    ? !!JSON.stringify(localStorage.getItem("tripStarted"))
+    : tripInfo.tripStarted;
+
+  const resetTrip = useCallback(() => {
+    localStorage.clear();
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
+  }, []);
+
   const {
     tripDate,
     time,
@@ -46,20 +56,26 @@ const TripInformation: React.FC<TripInformationProps> = ({
     endLocationName,
     tripDistance,
     tripFare,
-    tripStarted,
   } = tripInfo;
 
   return (
     <div className={styles["trip-info"]}>
       <div className={styles["tip-info__header"]}>
         <h1>Trip Information</h1>
-        <button
-          onClick={startTrip}
-          className={styles["start-btn"]}
-          disabled={tripStarted}
-        >
-          {tripStarted ? "Ride Started" : "Start Ride"}
-        </button>
+        <span className={styles["trip-info__actions"]}>
+          {tripStarted && (
+            <button onClick={resetTrip} className={styles["reset-btn"]}>
+              Reset
+            </button>
+          )}
+          <button
+            onClick={startTrip}
+            className={styles["start-btn"]}
+            disabled={tripStarted}
+          >
+            {tripStarted ? "Ride Started" : "Start Ride"}
+          </button>
+        </span>
       </div>
 
       <p className={styles["trip-info__date-time"]}>

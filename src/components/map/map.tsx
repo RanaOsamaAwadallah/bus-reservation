@@ -7,30 +7,27 @@ import {
   Marker,
   Circle,
 } from "react-google-maps";
-import * as data from "../../shared/mocks/route.json";
-import {
-  decodePolyline,
-  getProgressPath,
-  getDistance,
-} from "../../shared/helpers/mapHelper";
+import { getDistance } from "../../shared/helpers/mapHelper";
 import { STOPS } from "../../shared/constants";
 import { connect } from "react-redux";
+import { fetchRouteData } from "./mapSlice";
 
-class Map extends React.Component<{ tripStarted?: boolean }> {
+class Map extends React.Component<{
+  tripStarted?: boolean;
+  fetchRouteData: any;
+  polyline: Array<{ lat: number; lng: number }>;
+  waypoints: Array<{ lat: number; lng: number }>;
+  progressPath: Array<{ lat: number; lng: number; distance: number }>;
+}> {
   state = {
     progress: [],
-    path: [],
-    progressPath: [],
   };
   interval = 0;
   velocity = 20;
   initalDate: any;
 
   componentDidMount = () => {
-    const encodedPolyline = data.routes[0].overview_polyline.points;
-    const decodedPolyline = decodePolyline(encodedPolyline);
-    const progressPath = getProgressPath(decodedPolyline);
-    this.setState({ path: decodedPolyline, progressPath });
+    this.props.fetchRouteData();
     if (localStorage.getItem("initalDate")) {
       this.initalDate = new Date(localStorage.getItem("initalDate") as string);
       this.interval = window.setInterval(this.moveObject, 200);
@@ -59,11 +56,11 @@ class Map extends React.Component<{ tripStarted?: boolean }> {
       return;
     }
 
-    let progress = this.state.progressPath.filter(
+    let progress = this.props.progressPath.filter(
       (coordinates: any) => coordinates.distance < distance
     );
 
-    const nextLine: any = this.state.progressPath.find(
+    const nextLine: any = this.props.progressPath.find(
       (coordinates: any) => coordinates.distance > distance
     );
     if (!nextLine) {
@@ -97,16 +94,14 @@ class Map extends React.Component<{ tripStarted?: boolean }> {
   };
 
   render = () => {
+    const { polyline } = this.props;
     return (
       <>
         <GoogleMap
           defaultZoom={12}
           defaultCenter={{ lat: 30.0409879, lng: 31.34613896 }}
         >
-          <Polyline
-            path={this.state.path}
-            options={{ strokeColor: "#cd4b71" }}
-          />
+          <Polyline path={polyline} options={{ strokeColor: "#cd4b71" }} />
           {STOPS.map((stop) => (
             <Circle
               defaultCenter={stop}
@@ -141,9 +136,16 @@ class Map extends React.Component<{ tripStarted?: boolean }> {
 
 const mapStateToProps = (state: any) => ({
   tripStarted: state.tripInfoState.tripInfo.tripStarted,
+  polyline: state.mapState.mapData.polyline,
+  waypoints: state.mapState.mapData.waypoints,
+  progressPath: state.mapState.mapData.progressPath,
 });
 
-const connectedMap = connect(mapStateToProps)(Map);
+const mapDispatchToProps = {
+  fetchRouteData,
+};
+
+const connectedMap = connect(mapStateToProps, mapDispatchToProps)(Map);
 
 const MapComponent = withScriptjs(withGoogleMap(connectedMap));
 
